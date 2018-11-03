@@ -1,6 +1,14 @@
+// 직접 넣어주세요!
 List<PVector> FIREWORK_POINTS = new ArrayList<PVector>(
   Arrays.asList(new PVector(100, 100), new PVector(400, 400))
 );
+
+int[] FIREWORK_COLORS = {
+  color(249, 0, 143),
+  color(192, 0, 255),
+  color(30, 255, 236),
+  color(255)
+};
 
 public class Firework {
   boolean isFinished;
@@ -114,7 +122,7 @@ class ParticleSystem {
   ParticleSystem(int size, float spread, float x, float y) {
     p = new PVector(x,y);
     particles = new ArrayList();
-    c = color(random(220)+35,random(220)+35,random(220)+35);
+    c = FIREWORK_COLORS[int(random(FIREWORK_COLORS.length))];
     
     for(int i = 0; i < size; i++) {
        particles.add(new Particle(spread,c)); 

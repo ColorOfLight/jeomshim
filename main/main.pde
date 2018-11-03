@@ -9,9 +9,10 @@ public final float SENSOR_PADDING = 30;
 
 MyKinect mk;
 int currentState;
+int counterMillis = 0;
 
 CenterInteraction ir1, ir4;
-// Ripples ir2;
+Ripples ir2;
 Firework ir3;
 GlowingHand mouseGH, leftGH, rightGH;
 
@@ -30,7 +31,7 @@ void setup() {
 
   currentState = 0;
   ir1 = new CenterInteraction(true);
-  // ir2 = new Ripples();
+  ir2 = new Ripples();
   ir3 = new Firework();
   ir4 = new CenterInteraction(false);
 }
@@ -51,20 +52,37 @@ void draw() {
       currentState++;
     }
   } else if (currentState == 1) {
-    //ir2.update(mk);
-    //if (ir2.didEnd()) {
-    //  currentState++;
-    //}
-    currentState++;
+    ir2.update(mk);
+    if (counterMillis > 0) {
+      if (millis() - counterMillis > 1 * 1000 ) {
+        currentState++;
+        counterMillis = 0;
+      }
+    }
+    else if (ir2.didEnd()) {
+     counterMillis = millis();
+    }
   } else if (currentState == 2) {
     ir3.update(mk);
-    if (ir3.didEnd()) {
-      currentState++;
+    if (counterMillis > 0) {
+      if (millis() - counterMillis > 3 * 1000 ) {
+        currentState++;
+        counterMillis = millis();
+      }
+    }
+    else if (ir3.didEnd()) {
+      counterMillis = millis();
     }
   } else if (currentState == 3) {
     ir4.update(mk);
-    if (ir4.didEnd()) {
-      currentState++;
+    if (counterMillis > 0) {
+      if (millis() - counterMillis > 5 * 1000 ) {
+        currentState++;
+        counterMillis = millis();
+      }
+    }
+    else if (ir4.didEnd()) {
+      counterMillis = millis();
     }
   }
 
