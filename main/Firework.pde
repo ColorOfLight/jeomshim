@@ -35,7 +35,7 @@ public class Firework {
     }
 
     if (mk != null) {
-      //move();
+      move(mk.ableGetLeft, mk.leftHand.x, mk.leftHand.y);
     } else {
       move(mousePressed, mouseX, mouseY);
     }

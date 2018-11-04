@@ -3,7 +3,7 @@
 
 import java.util.*;
 
-public final float[] INTRO_ELLIPSIS = {640, 360, 10, 10};
+public final float[] INTRO_ELLIPSIS = {960, 540, 10, 10};
 
 public class CenterInteraction {
   private boolean isFinished;
@@ -34,7 +34,7 @@ public class CenterInteraction {
     }
 
     if (mk != null) {
-
+      move(mk.ableGetLeft, mk.leftHand.x, mk.leftHand.y);
     } else {
       move(mousePressed, mouseX, mouseY);
     }
@@ -49,6 +49,7 @@ public class CenterInteraction {
           for (int i = 0; i < stars.size(); i++) {
             stars.get(i).move();
           }
+          this.isFinished = true;
         }
       }
     }

@@ -1,7 +1,7 @@
 // Reference
 // https://www.openprocessing.org/sketch/616760
 
-int block_size = 25;
+int block_size = 50;
 int block_core = 1;
 int block_move_distance = 10;
 int block_move_range = 70;
@@ -25,7 +25,7 @@ public class Ripples {
   float left_padding, top_padding;
   PImage b;
   List<Block> blocks;
-  float tmp_x1, tmp_y1, tmp_x2, tmp_y2;
+  float tmp_x1, tmp_y1;
 
   Ripples() {
     this.isFinished = false;
@@ -33,7 +33,11 @@ public class Ripples {
     left_padding = round(width % block_size) / 2;
     top_padding = round(height % block_size) / 2;
 
-    b = loadImage("ocean2.jpg");
+    tmp_x1 = -1;
+    tmp_y1 = -1;
+
+
+    b = loadImage("#ripple.jpg");
     fps = 30;
 
     blocks = new ArrayList<Block>();
@@ -79,7 +83,17 @@ public class Ripples {
     }
 
     if (mk != null) {
-      // move();
+      if (mk.ableGetLeft) {
+        if (tmp_x1 < 0 || tmp_y1 < 0) {
+          tmp_x1 = mk.leftHand.x;
+          tmp_y1 = mk.leftHand.y;
+        } else {
+          mouse_speed = dist(mk.leftHand.x, mk.leftHand.y, tmp_x1, tmp_y1);
+          tmp_x1 = mk.leftHand.x;
+          tmp_y1 = mk.leftHand.y;
+          move(mk.ableGetLeft, mk.leftHand.x, mk.leftHand.y);
+        }
+      }
     } else {
       mouse_speed = dist(mouseX, mouseY, pmouseX, pmouseY);
       move(mousePressed, mouseX, mouseY);
@@ -156,7 +170,7 @@ class Ripple {
     Ripple(float x, float y, float scale) {
         this.pos = new PVector(x, y);
         this.initTime = millis();
-        this.currRadius = 0;
+        this.currRadius = 10;
         this.endRadius = max(dist(this.pos.x, this.pos.y, 0, 0), dist(this.pos.x, this.pos.y, 0, height), dist(this.pos.x, this.pos.y, width, 0));
         this.endRadius = max(this.endRadius, dist(this.pos.x, this.pos.y, height, width)) + block_move_range;
         this.scale = scale;
