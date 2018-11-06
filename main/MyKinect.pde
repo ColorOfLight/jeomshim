@@ -2,6 +2,10 @@ import SimpleOpenNI.*;
 import processing.serial.*;
 import processing.core.PApplet;
 
+// Kinect width/height는 확인하고 바꿔주세요.
+float kinect_max_width = 840;
+float kinect_max_height = 480;
+
 public class MyKinect {
   SimpleOpenNI kinect;
   Serial myPort;
@@ -31,9 +35,19 @@ public class MyKinect {
     if (userList.size() > 0) {
       int userId = userList.get(0);
       
+      
       PVector tmpLeft = _getHandAxes(userId, "left");
       PVector tmpRight = _getHandAxes(userId, "right");
       PVector tmpCenter = _getCenter(userId);
+      tmpLeft = new PVector(
+        map(tmpLeft.x, 0, kinect_max_width, 0, width),
+        map(tmpLeft.y, 0, kinect_max_height, 0, height));
+      tmpRight = new PVector(
+        map(tmpRight.x, 0, kinect_max_width, 0, width),
+        map(tmpRight.y, 0, kinect_max_height, 0, height));
+      tmpCenter = new PVector(
+        map(tmpCenter.x, 0, kinect_max_width, 0, width),
+        map(tmpCenter.y, 0, kinect_max_height, 0, height));
       
       if (tmpLeft == null) {
         this.ableGetLeft = false;
