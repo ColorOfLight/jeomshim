@@ -18,7 +18,7 @@ class GlowingHand {
     pushMatrix();
     translate(location.x, location.y);
     scale(radius*0.02, radius*0.02);
-    tint(80,80,80);
+    // tint(80,80,80);
     image(glow, -glow.width/2, -glow.height/2);
     popMatrix();
 
